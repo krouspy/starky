@@ -1,0 +1,9 @@
+{
+  "name": "@starky/provider",
+  "version": "0.0.1",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "bignumber.js": "^9.0.2"
+  }
+}
