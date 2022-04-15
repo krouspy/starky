@@ -93,26 +93,12 @@ type WriteOperations = {
 
 export type Operations = ReadOperations | WriteOperations;
 export type Operation = Operations['operation'];
-type ReadOperation = ReadOperations['operation'];
+type WriteOperation = WriteOperations['operation'];
 
-const readMethods: UnionToTuple<ReadOperation> = [
-  'get_block_by_number',
-  'get_block_by_hash',
-  'get_latest_block',
-  'get_block_hash_by_id',
-  'get_block_id_by_hash',
-  'get_transaction_by_hash',
-  'get_transaction_status',
-  'get_transaction_receipt',
-  'get_transaction_hash_by_id',
-  'get_transaction_id_by_hash',
-  'get_code',
-  'get_contract_addresses',
-  'get_storage_at',
-];
+const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction'];
 
-export function isReadOperation(s: Operation): s is ReadOperation {
-  return readMethods.includes(s as ReadOperation);
+export function isWriteOperation(s: Operation): s is WriteOperation {
+  return writeMethods.includes(s as WriteOperation);
 }
 
 export type ExtractOperation<U extends Operations['operation']> = Extract<

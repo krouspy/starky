@@ -1,5 +1,5 @@
 import type { Gateway, UrlPathname, Network, Operation, Endpoints } from './types';
-import { isReadOperation } from './types';
+import { isWriteOperation } from './types';
 
 const networkBaseUrl: Record<Network, string> = {
   mainnet: 'https://alpha-mainnet.starknet.io',
@@ -55,6 +55,6 @@ export class UrlBuilder {
   }
 
   private _getGatewayFromOperation(operation: Operation): Gateway {
-    return isReadOperation(operation) ? 'feeder_gateway' : 'gateway';
+    return isWriteOperation(operation) ? 'gateway' : 'feeder_gateway';
   }
 }
