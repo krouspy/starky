@@ -5,12 +5,16 @@ import {
   GetTransactionSchema,
   GetTransactionStatusSchema,
   GetTransactionReceiptSchema,
+  GetContractCodeSchema,
+  GetContractAddressesSchema,
 } from './packages/providers/src/schemas/responses';
 import type {
   GetBlockResponse,
   GetTransactionResponse,
   GetTransactionStatusResponse,
   GetTransactionReceiptResponse,
+  GetContractCodeResponse,
+  GetContractAddressesResponse,
 } from './packages/providers/src/types/responses';
 
 interface CustomMatchers<R = unknown> {
@@ -20,6 +24,8 @@ interface CustomMatchers<R = unknown> {
   toBeTransactionStatus(): R;
   toBeTransactionReceipt(): R;
   toBeTransactionHash(): R;
+  toBeContractCode(): R;
+  toBeContractAddresses(): R;
 }
 
 declare global {
@@ -70,6 +76,20 @@ expect.extend({
     TransactionHashSchema.parse(received);
     return {
       message: () => 'TransactionHash parsing success',
+      pass: true,
+    };
+  },
+  toBeContractCode(received: GetContractCodeResponse) {
+    GetContractCodeSchema.parse(received);
+    return {
+      message: () => 'ContractCode parsing success',
+      pass: true,
+    };
+  },
+  toBeContractAddresses(received: GetContractAddressesResponse) {
+    GetContractAddressesSchema.parse(received);
+    return {
+      message: () => 'ContractAddresses parsing success',
       pass: true,
     };
   },

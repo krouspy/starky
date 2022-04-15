@@ -17,6 +17,9 @@ const endpoints: Endpoints = {
   get_transaction_receipt: 'get_transaction_receipt',
   get_transaction_hash_by_id: 'get_transaction_hash_by_id',
   get_transaction_id_by_hash: 'get_transaction_id_by_hash',
+  get_code: 'get_code',
+  get_contract_addresses: 'get_contract_addresses',
+  get_storage_at: 'get_storage_at',
   add_transaction: 'add_transaction',
 };
 
@@ -38,7 +41,7 @@ export class UrlBuilder {
     if (!payload) return '';
     const searchParams = new URLSearchParams();
     Object.entries(payload).forEach(([key, value]) => {
-      if (value) {
+      if (value !== undefined && value !== null) {
         searchParams.set(key, value);
       }
     });

@@ -5,6 +5,8 @@ import type {
   GetTransactionStatusResponse,
   GetTransactionReceiptResponse,
   GetTransactionHashByIdResponse,
+  GetContractCodeResponse,
+  GetContractAddressesResponse,
 } from './responses';
 import type { UnionToTuple } from './utils';
 
@@ -66,6 +68,20 @@ export type ReadOperations =
       operation: OperationName<'get_transaction_id_by_hash'>;
       payload: { transactionHash: string };
       result: number;
+    }
+  | {
+      operation: OperationName<'get_code'>;
+      payload: { contractAddress: string };
+      result: GetContractCodeResponse;
+    }
+  | {
+      operation: OperationName<'get_contract_addresses'>;
+      result: GetContractAddressesResponse;
+    }
+  | {
+      operation: OperationName<'get_storage_at'>;
+      payload: { contractAddress: string; key: number };
+      result: string;
     };
 
 type WriteOperations = {
@@ -90,6 +106,9 @@ const readMethods: UnionToTuple<ReadOperation> = [
   'get_transaction_receipt',
   'get_transaction_hash_by_id',
   'get_transaction_id_by_hash',
+  'get_code',
+  'get_contract_addresses',
+  'get_storage_at',
 ];
 
 export function isReadOperation(s: Operation): s is ReadOperation {

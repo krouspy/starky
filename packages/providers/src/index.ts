@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { BigNumber } from '@ethersproject/bignumber';
 import type { Network, Operations, ExtractOperation, ExtractResult } from './types';
 import { UrlBuilder } from './url-builder';
+import { isPositiveInteger } from './utils';
 
 export class Provider {
   private readonly _urlBuilder: UrlBuilder;
@@ -27,7 +29,7 @@ export class Provider {
    * @returns a promise that resolves to the block
    */
   async getBlockByNumber(blockNumber: number) {
-    if (blockNumber < 0 || !Number.isInteger(blockNumber))
+    if (!isPositiveInteger(blockNumber))
       throw new Error('Provider: blockNumber must be a positive integer');
     return this._sendRequest('get_block_by_number', { blockNumber });
   }
@@ -47,7 +49,7 @@ export class Provider {
    * @returns a promise that resolves to the block hash
    */
   async getBlockHashById(blockId: number) {
-    if (blockId < 0 || !Number.isInteger(blockId))
+    if (!isPositiveInteger(blockId))
       throw new Error('Provider: blockId must be a positive integer');
     return this._sendRequest('get_block_hash_by_id', { blockId });
   }
@@ -94,7 +96,7 @@ export class Provider {
    * @returns A promise that resolves to the transaction hash
    */
   async getTransactionHashById(transactionId: number) {
-    if (transactionId < 0 || !Number.isInteger(transactionId))
+    if (!isPositiveInteger(transactionId))
       throw new Error('Provider: transactionId must be a positive integer');
     return this._sendRequest('get_transaction_hash_by_id', { transactionId });
   }
@@ -106,6 +108,39 @@ export class Provider {
    */
   async getTransactionIdByHash(transactionHash: string) {
     return this._sendRequest('get_transaction_id_by_hash', { transactionHash });
+  }
+
+  /**
+   * Get the abi and bytecode of a contract using its hex or int address. If the contract address is passed as an int (without '0x' prefix) then it is converted into hex
+   * @param contractAddress String
+   * @returns A promise that resolves to the contract abi and bytecode
+   */
+  async getContractCodeByAddress(contractAddress: string) {
+    const contractAddressHex = contractAddress.startsWith('0x')
+      ? contractAddress
+      : BigNumber.from(contractAddress).toHexString();
+    return this._sendRequest('get_code', { contractAddress: contractAddressHex });
+  }
+
+  /**
+   * Get Starknet contract addresses
+   * @returns A promise that resolves to the Starknet contract addresses
+   */
+  async getContractAddresses() {
+    return this._sendRequest('get_contract_addresses');
+  }
+
+  /**
+   * Get a contract storage value at a given slot. If the contract address is passed as an int (without '0x' prefix) then it is converted into hex
+   * @param contractAddress String
+   * @returns A promise that resolves to the storage slot value
+   */
+  async getStorageAt(contractAddress: string, slot: number) {
+    if (!isPositiveInteger(slot)) throw new Error('Provider: key must be a positive integer');
+    const contractAddressHex = contractAddress.startsWith('0x')
+      ? contractAddress
+      : BigNumber.from(contractAddress).toHexString();
+    return this._sendRequest('get_storage_at', { contractAddress: contractAddressHex, key: slot });
   }
 
   /**

@@ -85,11 +85,11 @@ export const GetTransactionReceiptSchema = z
         n_steps: z.number(),
         builtin_instance_counter: z.object({
           pedersen_builtin: z.number().optional(),
-          range_check_builtin: z.number(),
-          ecdsa_builtin: z.number(),
-          output_builtin: z.number(),
-          bitwise_builtin: z.number(),
-          ec_op_builtin: z.number(),
+          range_check_builtin: z.number().optional(),
+          ecdsa_builtin: z.number().optional(),
+          output_builtin: z.number().optional(),
+          bitwise_builtin: z.number().optional(),
+          ec_op_builtin: z.number().optional(),
         }),
         n_memory_holes: z.number(),
       })
@@ -112,7 +112,21 @@ export const GetBlockSchema = z
 
 export const GetTransactionStatusSchema = z
   .object({
-    tx_status: z.string(),
+    tx_status: StatusSchema,
     block_hash: BlockHashSchema,
+  })
+  .strict();
+
+export const GetContractCodeSchema = z
+  .object({
+    bytecode: z.string().array(),
+    abi: z.array(z.any()),
+  })
+  .strict();
+
+export const GetContractAddressesSchema = z
+  .object({
+    Starknet: z.string(),
+    GpsStatementVerifier: z.string(),
   })
   .strict();
