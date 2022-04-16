@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { BigNumber } from '@ethersproject/bignumber';
 import type { Network, Operations, ExtractOperation, ExtractResult } from './types';
 import { UrlBuilder } from './url-builder';
-import { isPositiveInteger } from './utils';
+import { isPositiveInteger, getHexAddress } from './utils';
 
 export class Provider {
   private readonly _urlBuilder: UrlBuilder;
@@ -116,9 +115,7 @@ export class Provider {
    * @returns A promise that resolves to the contract abi and bytecode
    */
   async getContractCodeByAddress(contractAddress: string) {
-    const contractAddressHex = contractAddress.startsWith('0x')
-      ? contractAddress
-      : BigNumber.from(contractAddress).toHexString();
+    const contractAddressHex = getHexAddress(contractAddress);
     return this._sendRequest('get_code', { contractAddress: contractAddressHex });
   }
 
@@ -137,9 +134,7 @@ export class Provider {
    */
   async getStorageAt(contractAddress: string, slot: number) {
     if (!isPositiveInteger(slot)) throw new Error('Provider: key must be a positive integer');
-    const contractAddressHex = contractAddress.startsWith('0x')
-      ? contractAddress
-      : BigNumber.from(contractAddress).toHexString();
+    const contractAddressHex = getHexAddress(contractAddress);
     return this._sendRequest('get_storage_at', { contractAddress: contractAddressHex, key: slot });
   }
 
