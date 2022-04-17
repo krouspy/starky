@@ -130,3 +130,7 @@ export const GetContractAddressesSchema = z
     GpsStatementVerifier: z.string(),
   })
   .strict();
+
+export const ReadContractSchema = z.object({
+  result: z.string().array(),
+});

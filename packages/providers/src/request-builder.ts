@@ -1,5 +1,6 @@
 import type { Gateway, UrlPathname, Network, Operation, Endpoints } from './types';
 import { isWriteOperation } from './types';
+import type { AxiosRequestConfig, Method } from 'axios';
 
 const networkBaseUrl: Record<Network, string> = {
   mainnet: 'https://alpha-mainnet.starknet.io',
@@ -20,21 +21,26 @@ const endpoints: Endpoints = {
   get_code: 'get_code',
   get_contract_addresses: 'get_contract_addresses',
   get_storage_at: 'get_storage_at',
+  call_contract: 'call_contract',
   add_transaction: 'add_transaction',
 };
 
-export class UrlBuilder {
+export class RequestBuilder {
   private readonly _baseUrl: string;
 
   constructor(network: Network) {
     this._baseUrl = networkBaseUrl[network];
   }
 
-  public create(operation: Operation, payload: unknown) {
+  public create(operation: Operation, payload: unknown): AxiosRequestConfig {
     const url = new URL(this._baseUrl);
     url.pathname = this._getPathnameFromOperation(operation);
     url.search = this._getSearchParams(payload as Record<string, string>);
-    return url.toString();
+    const method = this._getHttpMethodFromOperation(operation);
+    return {
+      method,
+      url: url.toString(),
+    };
   }
 
   private _getSearchParams(payload?: Record<string, string>) {
@@ -54,7 +60,16 @@ export class UrlBuilder {
     return `${gateway}/${endpoint}`;
   }
 
+  /**
+   * Get the gateway from operation. Most of the operations use 'feeder_gateway' except for 'add_transaction' which uses 'gateway'
+   * @param {Operation} operation
+   * @returns {Gateway} 'gateway' if the operation is 'add_transaction'. Otherwise 'feeder_gateway'
+   */
   private _getGatewayFromOperation(operation: Operation): Gateway {
-    return isWriteOperation(operation) ? 'gateway' : 'feeder_gateway';
+    return operation === 'add_transaction' ? 'gateway' : 'feeder_gateway';
+  }
+
+  private _getHttpMethodFromOperation(operation: Operation): Method {
+    return isWriteOperation(operation) ? 'POST' : 'GET';
   }
 }

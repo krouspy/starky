@@ -1,17 +1,24 @@
-import axios from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 import type { Network, Operations, ExtractOperation, ExtractResult } from './types';
-import { UrlBuilder } from './url-builder';
+import { RequestBuilder } from './request-builder';
 import { isPositiveInteger, getHexAddress } from './utils';
 
 export class Provider {
-  private readonly _urlBuilder: UrlBuilder;
+  private readonly _requestBuilder: RequestBuilder;
+  private readonly _axios: AxiosInstance;
 
   /**
    * Create a provider connected to the specified network
    * @param network - Network
    */
   constructor(network: Network) {
-    this._urlBuilder = new UrlBuilder(network);
+    this._requestBuilder = new RequestBuilder(network);
+    this._axios = axios.create({
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   /**
@@ -147,8 +154,8 @@ export class Provider {
     ...args: ExtractOperation<TOperation>
   ): Promise<ExtractResult<TOperation>> {
     const [operation, payload] = args;
-    const url = this._urlBuilder.create(operation, payload);
-    const { data } = await axios.get(url);
+    const { method, url } = this._requestBuilder.create(operation, payload);
+    const { data } = await this._axios({ method, url });
     return data;
   }
 }
