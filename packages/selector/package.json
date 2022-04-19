@@ -1,0 +1,22 @@
+{
+  "name": "@starky/selector",
+  "version": "0.0.1",
+  "author": "krouspy <krouspyy@gmail.com>",
+  "homepage": "https://github.com/krouspy/starky#readme",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@ethersproject/bignumber": "^5.6.0",
+    "js-sha3": "^0.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krouspy/starky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krouspy/starky/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25"
+  }
+}
