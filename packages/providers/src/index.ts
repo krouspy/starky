@@ -21,12 +21,20 @@ export class Provider {
     });
   }
 
+  async getNonce(contractAddress: string) {
+    const res = await this._sendRequest({
+      operation: 'get_nonce',
+      payload: { contractAddress, entry_point_selector: 'get_nonce' },
+    });
+    console.log('nonce oeoeo', res);
+  }
+
   /**
    * Get the latest block
    * @returns a promise that resolves to the latest block
    */
   async getLatestBlock() {
-    return this._sendRequest('get_latest_block');
+    return this._sendRequest({ operation: 'get_latest_block' });
   }
 
   /**
@@ -37,7 +45,10 @@ export class Provider {
   async getBlockByNumber(blockNumber: number) {
     if (!isPositiveInteger(blockNumber))
       throw new Error('Provider: blockNumber must be a positive integer');
-    return this._sendRequest('get_block_by_number', { blockNumber });
+    return this._sendRequest({
+      operation: 'get_block_by_number',
+      queryParameters: { blockNumber },
+    });
   }
 
   /**
@@ -46,7 +57,10 @@ export class Provider {
    * @returns a promise that resolves to the block
    */
   async getBlockByHash(blockHash: string) {
-    return this._sendRequest('get_block_by_hash', { blockHash });
+    return this._sendRequest({
+      operation: 'get_block_by_hash',
+      queryParameters: { blockHash },
+    });
   }
 
   /**
@@ -57,7 +71,10 @@ export class Provider {
   async getBlockHashById(blockId: number) {
     if (!isPositiveInteger(blockId))
       throw new Error('Provider: blockId must be a positive integer');
-    return this._sendRequest('get_block_hash_by_id', { blockId });
+    return this._sendRequest({
+      operation: 'get_block_hash_by_id',
+      queryParameters: { blockId },
+    });
   }
 
   /**
@@ -66,7 +83,10 @@ export class Provider {
    * @returns a promise that resolves to the block id
    */
   async getBlockIdByHash(blockHash: string) {
-    return this._sendRequest('get_block_id_by_hash', { blockHash });
+    return this._sendRequest({
+      operation: 'get_block_id_by_hash',
+      queryParameters: { blockHash },
+    });
   }
 
   /**
@@ -75,7 +95,10 @@ export class Provider {
    * @returns a promise that resolves to the transaction
    */
   async getTransaction(transactionHash: string) {
-    return this._sendRequest('get_transaction_by_hash', { transactionHash });
+    return this._sendRequest({
+      operation: 'get_transaction_by_hash',
+      queryParameters: { transactionHash },
+    });
   }
 
   /**
@@ -84,7 +107,10 @@ export class Provider {
    * @returns a promise that resolves to the transaction status
    */
   async getTransactionStatus(transactionHash: string) {
-    return this._sendRequest('get_transaction_status', { transactionHash });
+    return this._sendRequest({
+      operation: 'get_transaction_status',
+      queryParameters: { transactionHash },
+    });
   }
 
   /**
@@ -93,7 +119,10 @@ export class Provider {
    * @returns A promise that resolves to the transaction receipt
    */
   async getTransactionReceipt(transactionHash: string) {
-    return this._sendRequest('get_transaction_receipt', { transactionHash });
+    return this._sendRequest({
+      operation: 'get_transaction_receipt',
+      queryParameters: { transactionHash },
+    });
   }
 
   /**
@@ -104,7 +133,10 @@ export class Provider {
   async getTransactionHashById(transactionId: number) {
     if (!isPositiveInteger(transactionId))
       throw new Error('Provider: transactionId must be a positive integer');
-    return this._sendRequest('get_transaction_hash_by_id', { transactionId });
+    return this._sendRequest({
+      operation: 'get_transaction_hash_by_id',
+      queryParameters: { transactionId },
+    });
   }
 
   /**
@@ -113,7 +145,10 @@ export class Provider {
    * @returns A promise that resolves to the transaction id
    */
   async getTransactionIdByHash(transactionHash: string) {
-    return this._sendRequest('get_transaction_id_by_hash', { transactionHash });
+    return this._sendRequest({
+      operation: 'get_transaction_id_by_hash',
+      queryParameters: { transactionHash },
+    });
   }
 
   /**
@@ -123,7 +158,10 @@ export class Provider {
    */
   async getContractCodeByAddress(contractAddress: string) {
     const contractAddressHex = getHexAddress(contractAddress);
-    return this._sendRequest('get_code', { contractAddress: contractAddressHex });
+    return this._sendRequest({
+      operation: 'get_code',
+      queryParameters: { contractAddress: contractAddressHex },
+    });
   }
 
   /**
@@ -131,7 +169,7 @@ export class Provider {
    * @returns A promise that resolves to the Starknet contract addresses
    */
   async getContractAddresses() {
-    return this._sendRequest('get_contract_addresses');
+    return this._sendRequest({ operation: 'get_contract_addresses' });
   }
 
   /**
@@ -142,7 +180,10 @@ export class Provider {
   async getStorageAt(contractAddress: string, slot: number) {
     if (!isPositiveInteger(slot)) throw new Error('Provider: key must be a positive integer');
     const contractAddressHex = getHexAddress(contractAddress);
-    return this._sendRequest('get_storage_at', { contractAddress: contractAddressHex, key: slot });
+    return this._sendRequest({
+      operation: 'get_storage_at',
+      queryParameters: { contractAddress: contractAddressHex, key: slot },
+    });
   }
 
   /**
@@ -151,10 +192,9 @@ export class Provider {
    * @returns A promise that resolves to the HTTP response
    */
   private async _sendRequest<TOperation extends Operations['operation']>(
-    ...args: ExtractOperation<TOperation>
+    args: ExtractOperation<TOperation>
   ): Promise<ExtractResult<TOperation>> {
-    const [operation, queryParameters] = args;
-    const { method, url } = this._requestBuilder.create(operation, queryParameters);
+    const { method, url } = this._requestBuilder.create(args);
     const { data } = await this._axios({ method, url });
     return data;
   }

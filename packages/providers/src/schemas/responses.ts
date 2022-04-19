@@ -9,8 +9,8 @@ const StatusSchema = z.union([
   z.literal('REJECTED'),
 ]);
 
-export const BlockHashSchema = z.string().min(63);
-export const TransactionHashSchema = z.string().min(63);
+export const BlockHashSchema = z.string().min(62);
+export const TransactionHashSchema = z.string().min(62);
 
 const BaseTransactionSchema = z
   .object({

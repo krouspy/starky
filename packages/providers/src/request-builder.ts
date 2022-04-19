@@ -1,4 +1,12 @@
-import type { Gateway, UrlPathname, Network, Operation, Endpoints } from './types';
+import type {
+  Gateway,
+  UrlPathname,
+  Network,
+  ExtractOperation,
+  Operations,
+  Operation,
+  Endpoints,
+} from './types';
 import { isWriteOperation } from './types';
 import type { AxiosRequestConfig, Method } from 'axios';
 
@@ -21,6 +29,7 @@ const endpoints: Endpoints = {
   get_code: 'get_code',
   get_contract_addresses: 'get_contract_addresses',
   get_storage_at: 'get_storage_at',
+  get_nonce: 'call_contract',
   add_transaction: 'add_transaction',
 };
 
@@ -31,7 +40,10 @@ export class RequestBuilder {
     this._baseUrl = networkBaseUrl[network];
   }
 
-  public create(operation: Operation, queryParameters: unknown): AxiosRequestConfig {
+  public create<TOperation extends Operations['operation']>(
+    args: ExtractOperation<TOperation>
+  ): AxiosRequestConfig {
+    const { operation, queryParameters, payload } = args;
     const url = new URL(this._baseUrl);
     url.pathname = this._getPathnameFromOperation(operation);
     url.search = this._getSearchParams(queryParameters as Record<string, string>);
@@ -39,6 +51,7 @@ export class RequestBuilder {
     return {
       method,
       url: url.toString(),
+      data: JSON.stringify(payload),
     };
   }
 

@@ -80,6 +80,12 @@ export type ReadOperations =
       operation: 'get_storage_at';
       queryParameters: { contractAddress: string; key: number };
       result: string;
+    }
+  | {
+      operation: 'get_nonce';
+      endpoint: 'call_contract';
+      payload: { contractAddress: string; entry_point_selector: string };
+      result: string;
     };
 
 type WriteOperations = {
@@ -103,9 +109,14 @@ export type ExtractOperation<U extends Operations['operation']> = Extract<
   { operation: U }
 > extends {
   queryParameters: infer Q;
+  payload: infer P;
 }
-  ? [operation: U, queryParameters: Q]
-  : [operation: U];
+  ? { operation: U; queryParameters: Q; payload: P }
+  : Extract<Operations, { operation: U }> extends { queryParameters: infer Q }
+  ? { operation: U; queryParameters: Q; payload?: never }
+  : Extract<Operations, { operation: U }> extends { payload: infer P }
+  ? { operation: U; queryParameters?: never; payload: P }
+  : { operation: U; queryParameters?: never; payload?: never };
 
 export type ExtractResult<U extends Operations['operation']> = Extract<
   Operations,

@@ -1,0 +1,18 @@
+{
+  "name": "@starky/account",
+  "version": "0.0.1",
+  "author": "krouspy <krouspyy@gmail.com>",
+  "homepage": "https://github.com/krouspy/starky#readme",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@starky/providers": "0.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krouspy/starky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krouspy/starky/issues"
+  }
+}
