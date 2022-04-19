@@ -7,7 +7,6 @@ import type {
   GetTransactionHashByIdResponse,
   GetContractCodeResponse,
   GetContractAddressesResponse,
-  ReadContractResponse,
 } from './responses';
 import type { UnionToTuple } from './utils';
 
@@ -18,13 +17,13 @@ export type ReadOperations =
   | {
       operation: 'get_block_by_number';
       endpoint: 'get_block';
-      payload: { blockNumber: number };
+      queryParameters: { blockNumber: number };
       result: GetBlockResponse;
     }
   | {
       operation: 'get_block_by_hash';
       endpoint: 'get_block';
-      payload: { blockHash: string };
+      queryParameters: { blockHash: string };
       result: GetBlockResponse;
     }
   | {
@@ -34,43 +33,43 @@ export type ReadOperations =
     }
   | {
       operation: 'get_block_hash_by_id';
-      payload: { blockId: number };
+      queryParameters: { blockId: number };
       result: GetBlockHashByIdResponse;
     }
   | {
       operation: 'get_block_id_by_hash';
-      payload: { blockHash: string };
+      queryParameters: { blockHash: string };
       result: number;
     }
   | {
       operation: 'get_transaction_by_hash';
       endpoint: 'get_transaction';
-      payload: { transactionHash: string };
+      queryParameters: { transactionHash: string };
       result: GetTransactionResponse;
     }
   | {
       operation: 'get_transaction_status';
-      payload: { transactionHash: string };
+      queryParameters: { transactionHash: string };
       result: GetTransactionStatusResponse;
     }
   | {
       operation: 'get_transaction_receipt';
-      payload: { transactionHash: string };
+      queryParameters: { transactionHash: string };
       result: GetTransactionReceiptResponse;
     }
   | {
       operation: 'get_transaction_hash_by_id';
-      payload: { transactionId: number };
+      queryParameters: { transactionId: number };
       result: GetTransactionHashByIdResponse;
     }
   | {
       operation: 'get_transaction_id_by_hash';
-      payload: { transactionHash: string };
+      queryParameters: { transactionHash: string };
       result: number;
     }
   | {
       operation: 'get_code';
-      payload: { contractAddress: string };
+      queryParameters: { contractAddress: string };
       result: GetContractCodeResponse;
     }
   | {
@@ -79,27 +78,21 @@ export type ReadOperations =
     }
   | {
       operation: 'get_storage_at';
-      payload: { contractAddress: string; key: number };
+      queryParameters: { contractAddress: string; key: number };
       result: string;
     };
 
-type WriteOperations =
-  | {
-      operation: 'add_transaction';
-      payload: { transactionHash: string };
-      result: GetTransactionResponse;
-    }
-  | {
-      operation: 'call_contract';
-      payload: { contractAddress: string; entrypoint: string };
-      result: ReadContractResponse;
-    };
+type WriteOperations = {
+  operation: 'add_transaction';
+  queryParameters: { transactionHash: string };
+  result: GetTransactionResponse;
+};
 
 export type Operations = ReadOperations | WriteOperations;
 export type Operation = Operations['operation'];
 type WriteOperation = WriteOperations['operation'];
 
-const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction', 'call_contract'];
+const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction'];
 
 export function isWriteOperation(s: Operation): s is WriteOperation {
   return writeMethods.includes(s as WriteOperation);
@@ -109,9 +102,9 @@ export type ExtractOperation<U extends Operations['operation']> = Extract<
   Operations,
   { operation: U }
 > extends {
-  payload: infer P;
+  queryParameters: infer Q;
 }
-  ? [operation: U, payload: P]
+  ? [operation: U, queryParameters: Q]
   : [operation: U];
 
 export type ExtractResult<U extends Operations['operation']> = Extract<

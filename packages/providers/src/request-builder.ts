@@ -21,7 +21,6 @@ const endpoints: Endpoints = {
   get_code: 'get_code',
   get_contract_addresses: 'get_contract_addresses',
   get_storage_at: 'get_storage_at',
-  call_contract: 'call_contract',
   add_transaction: 'add_transaction',
 };
 
@@ -32,10 +31,10 @@ export class RequestBuilder {
     this._baseUrl = networkBaseUrl[network];
   }
 
-  public create(operation: Operation, payload: unknown): AxiosRequestConfig {
+  public create(operation: Operation, queryParameters: unknown): AxiosRequestConfig {
     const url = new URL(this._baseUrl);
     url.pathname = this._getPathnameFromOperation(operation);
-    url.search = this._getSearchParams(payload as Record<string, string>);
+    url.search = this._getSearchParams(queryParameters as Record<string, string>);
     const method = this._getHttpMethodFromOperation(operation);
     return {
       method,
@@ -43,10 +42,10 @@ export class RequestBuilder {
     };
   }
 
-  private _getSearchParams(payload?: Record<string, string>) {
-    if (!payload) return '';
+  private _getSearchParams(queryParameters?: Record<string, string>) {
+    if (!queryParameters) return '';
     const searchParams = new URLSearchParams();
-    Object.entries(payload).forEach(([key, value]) => {
+    Object.entries(queryParameters).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
         searchParams.set(key, value);
       }

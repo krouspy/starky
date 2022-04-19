@@ -153,8 +153,8 @@ export class Provider {
   private async _sendRequest<TOperation extends Operations['operation']>(
     ...args: ExtractOperation<TOperation>
   ): Promise<ExtractResult<TOperation>> {
-    const [operation, payload] = args;
-    const { method, url } = this._requestBuilder.create(operation, payload);
+    const [operation, queryParameters] = args;
+    const { method, url } = this._requestBuilder.create(operation, queryParameters);
     const { data } = await this._axios({ method, url });
     return data;
   }
