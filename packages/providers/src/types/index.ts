@@ -9,12 +9,11 @@ import type {
   GetContractAddressesResponse,
   GetNonceResponse,
 } from './responses';
-import type { UnionToTuple } from './utils';
 
 export type Network = 'mainnet' | 'goerli';
 export type Gateway = 'gateway' | 'feeder_gateway';
 
-export type ReadOperations =
+export type GetOperations =
   | {
       operation: 'get_block_by_number';
       endpoint: 'get_block';
@@ -83,7 +82,7 @@ export type ReadOperations =
       result: string;
     };
 
-type WriteOperations =
+type PostOperations =
   | {
       operation: 'add_transaction';
       queryParameters: { transactionHash: string };
@@ -96,14 +95,13 @@ type WriteOperations =
       result: GetNonceResponse;
     };
 
-export type Operations = ReadOperations | WriteOperations;
+export type Operations = GetOperations | PostOperations;
 export type Operation = Operations['operation'];
-type WriteOperation = WriteOperations['operation'];
+type PostOperation = PostOperations['operation'];
 
-const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction', 'get_nonce'];
-
-export function isWriteOperation(s: Operation): s is WriteOperation {
-  return writeMethods.includes(s as WriteOperation);
+export function isPostOperation(s: Operation): s is PostOperation {
+  const postOperations: PostOperation[] = ['add_transaction', 'get_nonce'];
+  return postOperations.includes(s as PostOperation);
 }
 
 export type ExtractOperation<U extends Operations['operation']> = Extract<

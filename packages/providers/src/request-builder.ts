@@ -7,7 +7,7 @@ import type {
   Operation,
   Endpoints,
 } from './types';
-import { isWriteOperation } from './types';
+import { isPostOperation } from './types';
 import type { AxiosRequestConfig, Method } from 'axios';
 
 const networkBaseUrl: Record<Network, string> = {
@@ -84,6 +84,6 @@ export class RequestBuilder {
   }
 
   private _getHttpMethodFromOperation(operation: Operation): Method {
-    return isWriteOperation(operation) ? 'POST' : 'GET';
+    return isPostOperation(operation) ? 'POST' : 'GET';
   }
 }
