@@ -1,4 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
+import { CallContractPayloadSchema } from './schemas/payloads';
+import type { Operation, PostOperation, CallContractPayload } from './types';
 
 export const isPositiveInteger = (num: number) => num >= 0 && Number.isInteger(num);
 /**
@@ -16,3 +18,13 @@ const isHexAddress = (s: string) => s.startsWith('0x');
  */
 export const getHexAddress = (address: string) =>
   isHexAddress(address) ? address : BigNumber.from(address).toHexString();
+
+export function isCallContractPayload(payload: unknown): payload is CallContractPayload {
+  const { success } = CallContractPayloadSchema.safeParse(payload);
+  return success;
+}
+
+export function isPostOperation(s: Operation): s is PostOperation {
+  const postOperations: PostOperation[] = ['add_transaction', 'get_nonce'];
+  return postOperations.includes(s as PostOperation);
+}

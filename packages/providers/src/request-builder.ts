@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig, Method } from 'axios';
 import type {
   Gateway,
   UrlPathname,
@@ -7,8 +8,7 @@ import type {
   Operation,
   Endpoints,
 } from './types';
-import { isPostOperation } from './types';
-import type { AxiosRequestConfig, Method } from 'axios';
+import { isPostOperation, isCallContractPayload } from './utils';
 
 const networkBaseUrl: Record<Network, string> = {
   mainnet: 'https://alpha-mainnet.starknet.io',
@@ -48,13 +48,16 @@ export class RequestBuilder {
     url.pathname = this._getPathnameFromOperation(operation);
     url.search = this._getSearchParams(queryParameters as Record<string, string>);
     const method = this._getHttpMethodFromOperation(operation);
+    const body = this._getBodyRequest(payload);
     return {
       method,
       url: url.toString(),
-      data: payload
-        ? JSON.stringify({ ...(payload as object), signature: [], calldata: [] })
-        : undefined,
+      data: body,
     };
+  }
+
+  private _getBodyRequest(payload: unknown) {
+    return isCallContractPayload(payload) ? JSON.stringify(payload) : undefined;
   }
 
   private _getSearchParams(queryParameters?: Record<string, string>) {

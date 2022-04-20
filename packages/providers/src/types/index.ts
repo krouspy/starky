@@ -1,3 +1,5 @@
+import { z } from 'zod';
+import { CallContractPayloadSchema } from '../schemas/payloads';
 import type {
   GetBlockResponse,
   GetBlockHashByIdResponse,
@@ -82,6 +84,8 @@ export type GetOperations =
       result: string;
     };
 
+export type CallContractPayload = z.infer<typeof CallContractPayloadSchema>;
+
 type PostOperations =
   | {
       operation: 'add_transaction';
@@ -91,18 +95,13 @@ type PostOperations =
   | {
       operation: 'get_nonce';
       endpoint: 'call_contract';
-      payload: { contract_address: string; entry_point_selector: string };
+      payload: CallContractPayload;
       result: GetNonceResponse;
     };
 
 export type Operations = GetOperations | PostOperations;
 export type Operation = Operations['operation'];
-type PostOperation = PostOperations['operation'];
-
-export function isPostOperation(s: Operation): s is PostOperation {
-  const postOperations: PostOperation[] = ['add_transaction', 'get_nonce'];
-  return postOperations.includes(s as PostOperation);
-}
+export type PostOperation = PostOperations['operation'];
 
 export type ExtractOperation<U extends Operations['operation']> = Extract<
   Operations,
