@@ -8,28 +8,28 @@ const contractAddress = '0x02a1178121f83d39486080c026fd37d70edc2d7e0649d71b28ed9
 
 describe('provider', () => {
   describe("getBlock(blockNumber | blockHash | 'latest')", () => {
-    test('getBlock(blockNumber)', async () => {
+    it('getBlock(blockNumber)', async () => {
       expect(await provider.getBlockByNumber(140000)).toBeBlock();
     });
 
-    test('getBlock(blockHash)', async () => {
+    it('getBlock(blockHash)', async () => {
       expect(await provider.getBlockByHash(blockHash)).toBeBlock();
     });
 
-    test("getBlock('latest')", async () => {
+    it("getBlock('latest')", async () => {
       expect(await provider.getLatestBlock()).toBeBlock();
     });
 
-    test('getBlockHashById(153399)', async () => {
+    it('getBlockHashById(153399)', async () => {
       expect(await provider.getBlockHashById(140000)).toBeBlockHash();
     });
 
-    test('getBlockIdByHash(blockHash)', async () => {
+    it('getBlockIdByHash(blockHash)', async () => {
       const blockId = await provider.getBlockIdByHash(blockHash);
       expect(blockId).toBeGreaterThan(0);
     });
 
-    test('throw getBlock(negativeNumber)', async () => {
+    it('throw getBlock(negativeNumber)', async () => {
       await expect(provider.getBlockByNumber(-10)).rejects.toThrowError(
         'Provider: blockNumber must be a positive integer'
       );
@@ -37,28 +37,28 @@ describe('provider', () => {
   });
 
   describe('getTransaction(hash)', () => {
-    test('getTransaction(transactionHash)', async () => {
+    it('getTransaction(transactionHash)', async () => {
       expect(await provider.getTransaction(txHash)).toBeTransaction();
     });
 
-    test('getTransactionStatus(transactionHash)', async () => {
+    it('getTransactionStatus(transactionHash)', async () => {
       expect(await provider.getTransactionStatus(txHash)).toBeTransactionStatus();
     });
 
-    test('getTransactionReceipt(transactionHash)', async () => {
+    it('getTransactionReceipt(transactionHash)', async () => {
       expect(await provider.getTransactionReceipt(txHash)).toBeTransactionReceipt();
     });
 
-    test('getTransactionHashById(transactionId)', async () => {
+    it('getTransactionHashById(transactionId)', async () => {
       expect(await provider.getTransactionHashById(3124872)).toBeTransactionHash();
     });
 
-    test('getTransactionIdByHash(transactionHash)', async () => {
+    it('getTransactionIdByHash(transactionHash)', async () => {
       const transactionId = await provider.getTransactionIdByHash(txHash);
       expect(transactionId).toBeGreaterThan(0);
     });
 
-    test('throw getTransactionHashById(negativeNumber)', async () => {
+    it('throw getTransactionHashById(negativeNumber)', async () => {
       await expect(provider.getTransactionHashById(-10)).rejects.toThrowError(
         'Provider: transactionId must be a positive integer'
       );
@@ -66,42 +66,42 @@ describe('provider', () => {
   });
 
   describe('getContractCodeByAddress()', () => {
-    test('getContractCodeByAddress(contractAddressHex)', async () => {
+    it('getContractCodeByAddress(contractAddressHex)', async () => {
       expect(await provider.getContractCodeByAddress(contractAddress)).toBeContractCode();
     });
 
-    test('getContractCodeByAddress(contractAddressInt)', async () => {
+    it('getContractCodeByAddress(contractAddressInt)', async () => {
       expect(
         await provider.getContractCodeByAddress(BigNumber.from(contractAddress).toString())
       ).toBeContractCode();
     });
   });
 
-  test('getContractAddresses()', async () => {
+  it('getContractAddresses()', async () => {
     expect(await provider.getContractAddresses()).toBeContractAddresses();
   });
 
   describe('getContractAddress()', () => {
-    test('getStorageAt(contractAddressHex, 0)', async () => {
+    it('getStorageAt(contractAddressHex, 0)', async () => {
       const slot = 0;
       const storage = await provider.getStorageAt(contractAddress, slot);
       expect(typeof storage).toBe('string');
     });
 
-    test('getStorageAt(contractAddressInt, 0)', async () => {
+    it('getStorageAt(contractAddressInt, 0)', async () => {
       const slot = 0;
       const storage = await provider.getStorageAt(BigNumber.from(contractAddress).toString(), slot);
       expect(typeof storage).toBe('string');
     });
 
-    test('throw getStorageAt(contractAddressHex, 0.5)', async () => {
+    it('throw getStorageAt(contractAddressHex, 0.5)', async () => {
       const slot = 0.5;
       await expect(provider.getStorageAt(contractAddress, slot)).rejects.toThrowError(
         'Provider: key must be a positive integer'
       );
     });
 
-    test('throw getStorageAt(contractAddressHex, -1)', async () => {
+    it('throw getStorageAt(contractAddressHex, -1)', async () => {
       const slot = -1;
       await expect(provider.getStorageAt(contractAddress, slot)).rejects.toThrowError(
         'Provider: key must be a positive integer'
@@ -110,7 +110,7 @@ describe('provider', () => {
   });
 
   describe('getNonce()', () => {
-    test('getNonce()', async () => {
+    it('getNonce()', async () => {
       const address = '0x6965c8a5318fbd638949888fabbd54e247897dcd696f1b6e31db04485fa1277';
       const nonce = await provider.getNonce(address);
       expect(typeof nonce).toBe('string');

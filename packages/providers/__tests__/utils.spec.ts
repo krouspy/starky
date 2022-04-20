@@ -1,19 +1,33 @@
-import { isCallContractPayload } from '../src/utils';
+import { isPositiveInteger, isCallContractPayload } from '../src/utils';
 import type { CallContractPayload } from '../src/types';
 
 describe('provider.utils', () => {
+  describe('isPositiveInteger()', () => {
+    it('isPositiveInteger(10) -> true', () => {
+      expect(isPositiveInteger(10)).toBe(true);
+    });
+
+    it('isPositiveInteger(1.5) -> false', () => {
+      expect(isPositiveInteger(1.5)).toBe(false);
+    });
+
+    it('isPositiveInteger(-2) -> false', () => {
+      expect(isPositiveInteger(-2)).toBe(false);
+    });
+  });
+
   describe('isCallContractPayload()', () => {
-    test('isCallContractPayload(payload)', () => {
+    it('isCallContractPayload(payload) -> true', () => {
       const payload: CallContractPayload = {
         contract_address: 'address',
         entry_point_selector: 'entry_point',
         signature: ['signature'],
         calldata: ['calldata'],
       };
-      expect(isCallContractPayload(payload)).toBeTruthy();
+      expect(isCallContractPayload(payload)).toBe(true);
     });
 
-    test('throw isCallContractPayload(payload)', () => {
+    it('isCallContractPayload(payload) -> false', () => {
       const payload1: Partial<CallContractPayload> = {
         contract_address: 'address',
         entry_point_selector: 'entry_point',
@@ -34,10 +48,10 @@ describe('provider.utils', () => {
         signature: ['signature'],
         calldata: ['calldata'],
       };
-      expect(isCallContractPayload(payload1)).toBeFalsy();
-      expect(isCallContractPayload(payload2)).toBeFalsy();
-      expect(isCallContractPayload(payload3)).toBeFalsy();
-      expect(isCallContractPayload(payload4)).toBeFalsy();
+      expect(isCallContractPayload(payload1)).toBe(false);
+      expect(isCallContractPayload(payload2)).toBe(false);
+      expect(isCallContractPayload(payload3)).toBe(false);
+      expect(isCallContractPayload(payload4)).toBe(false);
     });
   });
 });
