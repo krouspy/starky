@@ -7,7 +7,7 @@ import {
   GetTransactionReceiptSchema,
   GetContractCodeSchema,
   GetContractAddressesSchema,
-  ReadContractSchema,
+  GetNonceSchema,
 } from './packages/providers/src/schemas/responses';
 import type {
   GetBlockResponse,
@@ -16,7 +16,7 @@ import type {
   GetTransactionReceiptResponse,
   GetContractCodeResponse,
   GetContractAddressesResponse,
-  ReadContractResponse,
+  GetNonceResponse,
 } from './packages/providers/src/types/responses';
 
 interface CustomMatchers<R = unknown> {
@@ -28,7 +28,7 @@ interface CustomMatchers<R = unknown> {
   toBeTransactionHash(): R;
   toBeContractCode(): R;
   toBeContractAddresses(): R;
-  toBeCallContract(): R;
+  toBeNonce(): R;
 }
 
 declare global {
@@ -96,10 +96,10 @@ expect.extend({
       pass: true,
     };
   },
-  toBeCallContract(received: ReadContractResponse) {
-    ReadContractSchema.parse(received);
+  toBeNonce(received: GetNonceResponse) {
+    GetNonceSchema.parse(received);
     return {
-      message: () => 'CallContract parsing success',
+      message: () => 'GetNonce parsing success',
       pass: true,
     };
   },

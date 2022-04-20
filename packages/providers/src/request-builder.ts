@@ -51,7 +51,9 @@ export class RequestBuilder {
     return {
       method,
       url: url.toString(),
-      data: JSON.stringify(payload),
+      data: payload
+        ? JSON.stringify({ ...(payload as object), signature: [], calldata: [] })
+        : undefined,
     };
   }
 

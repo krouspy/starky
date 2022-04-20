@@ -131,6 +131,6 @@ export const GetContractAddressesSchema = z
   })
   .strict();
 
-export const ReadContractSchema = z.object({
+export const GetNonceSchema = z.object({
   result: z.string().array(),
 });

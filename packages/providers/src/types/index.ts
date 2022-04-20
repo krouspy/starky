@@ -7,6 +7,7 @@ import type {
   GetTransactionHashByIdResponse,
   GetContractCodeResponse,
   GetContractAddressesResponse,
+  GetNonceResponse,
 } from './responses';
 import type { UnionToTuple } from './utils';
 
@@ -80,25 +81,26 @@ export type ReadOperations =
       operation: 'get_storage_at';
       queryParameters: { contractAddress: string; key: number };
       result: string;
+    };
+
+type WriteOperations =
+  | {
+      operation: 'add_transaction';
+      queryParameters: { transactionHash: string };
+      result: GetTransactionResponse;
     }
   | {
       operation: 'get_nonce';
       endpoint: 'call_contract';
-      payload: { contractAddress: string; entry_point_selector: string };
-      result: string;
+      payload: { contract_address: string; entry_point_selector: string };
+      result: GetNonceResponse;
     };
-
-type WriteOperations = {
-  operation: 'add_transaction';
-  queryParameters: { transactionHash: string };
-  result: GetTransactionResponse;
-};
 
 export type Operations = ReadOperations | WriteOperations;
 export type Operation = Operations['operation'];
 type WriteOperation = WriteOperations['operation'];
 
-const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction'];
+const writeMethods: UnionToTuple<WriteOperation> = ['add_transaction', 'get_nonce'];
 
 export function isWriteOperation(s: Operation): s is WriteOperation {
   return writeMethods.includes(s as WriteOperation);

@@ -1,7 +1,9 @@
 import axios, { type AxiosInstance } from 'axios';
+import { getSelectorFromName } from '@starky/selector';
 import type { Network, Operations, ExtractOperation, ExtractResult } from './types';
 import { RequestBuilder } from './request-builder';
 import { isPositiveInteger, getHexAddress } from './utils';
+import { getErrorMessage } from './error';
 
 export class Provider {
   private readonly _requestBuilder: RequestBuilder;
@@ -22,11 +24,11 @@ export class Provider {
   }
 
   async getNonce(contractAddress: string) {
-    const res = await this._sendRequest({
+    const selector = getSelectorFromName('get_nonce');
+    return this._sendRequest({
       operation: 'get_nonce',
-      payload: { contractAddress, entry_point_selector: 'get_nonce' },
+      payload: { contract_address: contractAddress, entry_point_selector: selector.hex },
     });
-    console.log('nonce oeoeo', res);
   }
 
   /**
@@ -188,14 +190,18 @@ export class Provider {
 
   /**
    * Perform HTTP requests
-   * @param ...args The first parameter is the operation to perform and the second parameter type is inferred from the first parameter
+   * @param ...args The first parameter is the operation to perform and the second and thrid parameters type areinferred from the first parameter
    * @returns A promise that resolves to the HTTP response
    */
   private async _sendRequest<TOperation extends Operations['operation']>(
     args: ExtractOperation<TOperation>
   ): Promise<ExtractResult<TOperation>> {
-    const { method, url } = this._requestBuilder.create(args);
-    const { data } = await this._axios({ method, url });
-    return data;
+    try {
+      const { method, url, data: body } = this._requestBuilder.create(args);
+      const { data } = await this._axios.request({ method, url, data: body });
+      return data;
+    } catch (error: unknown) {
+      throw new Error(getErrorMessage(error));
+    }
   }
 }
