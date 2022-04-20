@@ -7,9 +7,6 @@
     "prettier": "prettier \"**/*.ts\"",
     "prepare": "husky install"
   },
-  "dependencies": {
-    "zod": "^3.14.4"
-  },
   "devDependencies": {
     "@jest/types": "^27.5.1",
     "@types/jest": "^27.4.1",

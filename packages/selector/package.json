@@ -9,14 +9,14 @@
     "@ethersproject/bignumber": "^5.6.0",
     "js-sha3": "^0.8.0"
   },
+  "devDependencies": {
+    "@types/node": "^17.0.25"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krouspy/starky.git"
   },
   "bugs": {
     "url": "https://github.com/krouspy/starky/issues"
-  },
-  "devDependencies": {
-    "@types/node": "^17.0.25"
   }
 }
