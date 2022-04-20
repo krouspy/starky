@@ -49,5 +49,7 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: yarn --frozen-lockfile
+    - name: Install packages dependencies
+      run: lerna bootstrap
     - name: Unit tests
       run: yarn test
