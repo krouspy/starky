@@ -1,18 +1,12 @@
 {
-  "name": "@starky/key-pair",
+  "name": "@starky/utils",
   "version": "0.0.1",
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
   "main": "src/index.ts",
   "dependencies": {
-    "@ethersproject/bignumber": "^5.6.0",
-    "@starky/utils": "^0.0.1",
-    "elliptic": "^6.5.4",
-    "hash.js": "^1.1.7"
-  },
-  "devDependencies": {
-    "@types/elliptic": "^6.4.14"
+    "@ethersproject/bignumber": "^5.6.0"
   },
   "repository": {
     "type": "git",
