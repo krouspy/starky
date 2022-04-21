@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { addHexPrefix, removeHexPrefix } from '@starky/utils';
-import { ec } from './elliptic';
+import { ec, type KeyPair } from './elliptic';
 import { sanitizeBytes } from './encode';
 
 /**
@@ -17,27 +17,26 @@ export function createStarkPrivateKey(length = 63) {
   return BigNumber.from(addHexPrefix(result)).toHexString();
 }
 
-function getKeyPairFromPrivateKey(privateKeyHex: string) {
+function getKeyPairFromPrivateKey(privateKeyHex: string): KeyPair {
   return ec.keyFromPrivate(removeHexPrefix(privateKeyHex), 'hex');
 }
 
-function getPublicKey(privateKeyHex: string) {
+export function getPublicKeyFromPrivateKey(privateKeyHex: string) {
   const keyPair = getKeyPairFromPrivateKey(privateKeyHex);
   // generate the .pub property used below
   keyPair.getPublic(true, 'hex');
   return addHexPrefix(sanitizeBytes((keyPair as any).pub.getX().toString(16), 2));
 }
 
-export function getPublicKeyFromPrivateKey(privateKeyHex: string) {
-  return getPublicKey(privateKeyHex);
-}
-
 /**
- * Create stark private and public keys
- * @returns An object containing the private and public keys
+ * Create stark private and public keys EC.KeyPair associated
+ * @returns An object containing the private and public keys and the EC.KeyPair associated
  */
 export function createStarkKeys() {
   const privateKey = createStarkPrivateKey();
+  const keyPair = getKeyPairFromPrivateKey(privateKey);
   const publicKey = getPublicKeyFromPrivateKey(privateKey);
-  return { privateKey, publicKey };
+  return { privateKey, publicKey, keyPair };
 }
+
+export { KeyPair };

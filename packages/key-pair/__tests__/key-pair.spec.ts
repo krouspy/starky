@@ -15,8 +15,9 @@ describe('key-pair', () => {
   });
 
   it('createStarkKeys()', () => {
-    const { privateKey, publicKey } = createStarkKeys();
+    const { privateKey, publicKey, keyPair } = createStarkKeys();
     expect(typeof privateKey).toBe('string');
     expect(typeof publicKey).toBe('string');
+    expect(typeof keyPair).toBe('object');
   });
 });
