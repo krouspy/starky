@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { Abi } from '@starky/contract';
 import { CallContractPayloadSchema } from '../schemas/payloads';
 import type {
   GetBlockResponse,
@@ -10,6 +11,7 @@ import type {
   GetContractCodeResponse,
   GetContractAddressesResponse,
   GetNonceResponse,
+  AddTransactionResponse,
 } from './responses';
 
 export type Network = 'mainnet' | 'goerli';
@@ -86,11 +88,25 @@ export type GetOperations =
 
 export type CallContractPayload = z.infer<typeof CallContractPayloadSchema>;
 
+type ContractDefinition = {
+  abi: Abi;
+  entry_points_by_type: object;
+  program: Record<any, any>;
+};
+
+type DeployContractPayload = {
+  type: 'DEPLOY';
+  contract_address_salt: number;
+  constructor_calldata: string[];
+  contract_definition: ContractDefinition;
+};
+
 type PostOperations =
   | {
-      operation: 'add_transaction';
-      queryParameters: { transactionHash: string };
-      result: GetTransactionResponse;
+      operation: 'deploy_contract';
+      endpoint: 'add_transaction';
+      payload: DeployContractPayload;
+      result: AddTransactionResponse;
     }
   | {
       operation: 'get_nonce';

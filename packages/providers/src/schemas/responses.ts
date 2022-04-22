@@ -134,3 +134,11 @@ export const GetContractAddressesSchema = z
 export const GetNonceSchema = z.object({
   result: z.string().array(),
 });
+
+export const AddTransactionSchema = z
+  .object({
+    code: z.literal('TRANSACTION_RECEIVED'),
+    transaction_hash: z.string(),
+    address: z.string(),
+  })
+  .strict();

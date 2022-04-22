@@ -30,7 +30,7 @@ const endpoints: Endpoints = {
   get_contract_addresses: 'get_contract_addresses',
   get_storage_at: 'get_storage_at',
   get_nonce: 'call_contract',
-  add_transaction: 'add_transaction',
+  deploy_contract: 'add_transaction',
 };
 
 export class RequestBuilder {
