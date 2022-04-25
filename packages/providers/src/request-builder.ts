@@ -8,7 +8,7 @@ import type {
   Operation,
   Endpoints,
 } from './types';
-import { isPostOperation, isCallContractPayload } from './utils';
+import { isPostOperation } from './utils';
 
 const networkBaseUrl: Record<Network, string> = {
   mainnet: 'https://alpha-mainnet.starknet.io',
@@ -30,6 +30,7 @@ const endpoints: Endpoints = {
   get_contract_addresses: 'get_contract_addresses',
   get_storage_at: 'get_storage_at',
   get_nonce: 'call_contract',
+  call_contract: 'call_contract',
   deploy_contract: 'add_transaction',
 };
 
@@ -48,7 +49,7 @@ export class RequestBuilder {
     url.pathname = this._getPathnameFromOperation(operation);
     url.search = this._getSearchParams(queryParameters as Record<string, string>);
     const method = this._getHttpMethodFromOperation(operation);
-    const body = this._getBodyRequest(payload);
+    const body = this._getBodyRequest(operation, payload);
     return {
       method,
       url: url.toString(),
@@ -56,8 +57,8 @@ export class RequestBuilder {
     };
   }
 
-  private _getBodyRequest(payload: unknown) {
-    return isCallContractPayload(payload) ? JSON.stringify(payload) : undefined;
+  private _getBodyRequest(operation: Operation, payload: unknown) {
+    return isPostOperation(operation) ? JSON.stringify(payload) : undefined;
   }
 
   private _getSearchParams(queryParameters?: Record<string, string>) {
@@ -83,7 +84,8 @@ export class RequestBuilder {
    * @returns {Gateway} 'gateway' if the operation is 'add_transaction'. Otherwise 'feeder_gateway'
    */
   private _getGatewayFromOperation(operation: Operation): Gateway {
-    return operation === 'add_transaction' ? 'gateway' : 'feeder_gateway';
+    const endpoint = endpoints[operation];
+    return endpoint === 'add_transaction' ? 'gateway' : 'feeder_gateway';
   }
 
   private _getHttpMethodFromOperation(operation: Operation): Method {

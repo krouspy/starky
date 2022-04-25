@@ -25,6 +25,11 @@ export function isCallContractPayload(payload: unknown): payload is CallContract
 }
 
 export function isPostOperation(s: Operation): s is PostOperation {
-  const postOperations: PostOperation[] = ['deploy_contract', 'get_nonce'];
+  const postOperations: PostOperation[] = [
+    'call_contract',
+    'invoke_contract',
+    'deploy_contract',
+    'get_nonce',
+  ];
   return postOperations.includes(s as PostOperation);
 }

@@ -7,7 +7,7 @@ import {
   GetTransactionReceiptSchema,
   GetContractCodeSchema,
   GetContractAddressesSchema,
-  GetNonceSchema,
+  CallContractResultSchema,
 } from './packages/providers/src/schemas/responses';
 import type {
   GetBlockResponse,
@@ -16,7 +16,7 @@ import type {
   GetTransactionReceiptResponse,
   GetContractCodeResponse,
   GetContractAddressesResponse,
-  GetNonceResponse,
+  CallContractResultResponse,
 } from './packages/providers/src/types/responses';
 
 interface CustomMatchers<R = unknown> {
@@ -96,8 +96,8 @@ expect.extend({
       pass: true,
     };
   },
-  toBeNonce(received: GetNonceResponse) {
-    GetNonceSchema.parse(received);
+  toBeNonce(received: CallContractResultResponse) {
+    CallContractResultSchema.parse(received);
     return {
       message: () => 'GetNonce parsing success',
       pass: true,

@@ -8,7 +8,7 @@ import {
   GetTransactionReceiptSchema,
   GetContractCodeSchema,
   GetContractAddressesSchema,
-  GetNonceSchema,
+  CallContractResultSchema,
   AddTransactionSchema,
 } from '../schemas/responses';
 
@@ -20,5 +20,5 @@ export type GetTransactionReceiptResponse = z.infer<typeof GetTransactionReceipt
 export type GetTransactionHashByIdResponse = z.infer<typeof TransactionHashSchema>;
 export type GetContractCodeResponse = z.infer<typeof GetContractCodeSchema>;
 export type GetContractAddressesResponse = z.infer<typeof GetContractAddressesSchema>;
-export type GetNonceResponse = z.infer<typeof GetNonceSchema>;
+export type CallContractResultResponse = z.infer<typeof CallContractResultSchema>;
 export type AddTransactionResponse = z.infer<typeof AddTransactionSchema>;

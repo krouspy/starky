@@ -1,7 +1,13 @@
 import axios, { type AxiosInstance } from 'axios';
 import { getSelectorFromName } from '@starky/selector';
-import type { Abi } from '@starky/contract';
-import type { Network, Operations, ExtractOperation, ExtractResult } from './types';
+import type {
+  Network,
+  Operations,
+  ExtractOperation,
+  ExtractResult,
+  ContractDefinition,
+  ContractInteraction,
+} from './types';
 import { RequestBuilder } from './request-builder';
 import { isPositiveInteger, getHexAddress } from './utils';
 import { getErrorMessage } from './error';
@@ -24,18 +30,51 @@ export class Provider {
     });
   }
 
-  async deployContract(abi: Abi, entry_points_by_type: object, program: Record<any, any>) {
+  async callContract({
+    contractAddress,
+    functionName,
+    signature = [],
+    calldata = [],
+  }: ContractInteraction) {
+    const selector = getSelectorFromName(functionName);
+    return this._sendRequest({
+      operation: 'call_contract',
+      payload: {
+        contract_address: contractAddress,
+        entry_point_selector: selector.hex,
+        signature,
+        calldata,
+      },
+    });
+  }
+
+  async invokeContract({
+    contractAddress,
+    functionName,
+    signature = [],
+    calldata = [],
+  }: ContractInteraction) {
+    const selector = getSelectorFromName(functionName);
+    return this._sendRequest({
+      operation: 'invoke_contract',
+      payload: {
+        type: 'INVOKE_FUNCTION',
+        contract_address: contractAddress,
+        entry_point_selector: selector.hex,
+        signature,
+        calldata,
+      },
+    });
+  }
+
+  async deployContract(publicKey: string, contractDefinition: ContractDefinition) {
     return this._sendRequest({
       operation: 'deploy_contract',
       payload: {
         type: 'DEPLOY',
-        contract_address_salt: 0,
+        contract_address_salt: publicKey,
         constructor_calldata: [],
-        contract_definition: {
-          abi,
-          entry_points_by_type,
-          program,
-        },
+        contract_definition: contractDefinition,
       },
     });
   }

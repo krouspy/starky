@@ -10,7 +10,7 @@ import type {
   GetTransactionHashByIdResponse,
   GetContractCodeResponse,
   GetContractAddressesResponse,
-  GetNonceResponse,
+  CallContractResultResponse,
   AddTransactionResponse,
 } from './responses';
 
@@ -86,22 +86,50 @@ export type GetOperations =
       result: string;
     };
 
+export type ContractInteraction = {
+  contractAddress: string;
+  functionName: string;
+  signature?: string[];
+  calldata?: string[];
+  args?: Record<any, any>;
+};
 export type CallContractPayload = z.infer<typeof CallContractPayloadSchema>;
 
-type ContractDefinition = {
+export type ContractDefinition = {
   abi: Abi;
-  entry_points_by_type: object;
-  program: Record<any, any>;
+  entry_points_by_type: {
+    CONSTRUCTOR: string[];
+    EXTERNAL: {
+      offset: string;
+      selector: string;
+    }[];
+    L1_HANDLER: string[];
+  };
+  program: string;
 };
 
 type DeployContractPayload = {
   type: 'DEPLOY';
-  contract_address_salt: number;
+  contract_address_salt: string;
   constructor_calldata: string[];
   contract_definition: ContractDefinition;
 };
 
+export type InvokeContract = CallContractPayload & { type: 'INVOKE_FUNCTION' };
+
+// Update isPostOperation() when updating the type below
 type PostOperations =
+  | {
+      operation: 'call_contract';
+      payload: CallContractPayload;
+      result: CallContractResultResponse;
+    }
+  | {
+      operation: 'invoke_contract';
+      endpoint: 'add_transaction';
+      payload: InvokeContract;
+      result: AddTransactionResponse;
+    }
   | {
       operation: 'deploy_contract';
       endpoint: 'add_transaction';
@@ -112,7 +140,7 @@ type PostOperations =
       operation: 'get_nonce';
       endpoint: 'call_contract';
       payload: CallContractPayload;
-      result: GetNonceResponse;
+      result: CallContractResultResponse;
     };
 
 export type Operations = GetOperations | PostOperations;
