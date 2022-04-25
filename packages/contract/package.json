@@ -6,7 +6,9 @@
   "license": "ISC",
   "main": "src/index.ts",
   "dependencies": {
-    "@starky/providers": "^0.0.1"
+    "@starky/key-pair": "^0.0.1",
+    "@starky/providers": "^0.0.1",
+    "@starky/utils": "^0.0.1"
   },
   "repository": {
     "type": "git",

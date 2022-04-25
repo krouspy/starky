@@ -19,13 +19,16 @@ export type Argument = {
 export type CairoFunction = {
   stateMutability?: string;
   name: string;
-  type: 'function' | 'constructor';
-  inputs: Argument[];
-  outputs: Argument[];
+  // type: 'function' | 'constructor';
+  type: string;
+  inputs?: Argument[];
+  outputs?: Argument[];
 };
 
 export type AbiEntry = CairoFunction | Struct;
 
-export type Abi = {
+/* export type Abi = {
   [name: string]: AbiEntry;
-};
+}; */
+
+export type Abi = AbiEntry[];
