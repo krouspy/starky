@@ -6,7 +6,7 @@ const blockHash = '0x6a6932effb58a2e23fcb3a648b6bbf4f973cf34c7e286e804dd5386057d
 const txHash = '0x2245e63c6d7cd67c3325ba3d94f2d21370285ec978a22d087d93d531bfb189f';
 const contractAddress = '0x02a1178121f83d39486080c026fd37d70edc2d7e0649d71b28ed9f4bdd9a0914';
 
-describe('provider', () => {
+describe('Provider', () => {
   describe("getBlock(blockNumber | blockHash | 'latest')", () => {
     it('getBlock(blockNumber)', async () => {
       expect(await provider.getBlockByNumber(140000)).toBeBlock();

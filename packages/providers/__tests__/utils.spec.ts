@@ -1,7 +1,7 @@
 import { isPositiveInteger, isCallContractPayload } from '../src/utils';
 import type { CallContractPayload } from '../src/types';
 
-describe('provider.utils', () => {
+describe('Provider.Utils', () => {
   describe('isPositiveInteger()', () => {
     it('isPositiveInteger(10) -> true', () => {
       expect(isPositiveInteger(10)).toBe(true);

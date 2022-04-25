@@ -1,6 +1,6 @@
 import { createStarkPrivateKey, getPublicKeyFromPrivateKey, createStarkKeys } from '../src';
 
-describe('key-pair', () => {
+describe('KeyPair', () => {
   it('generateRandomStarkPrivateKey()', () => {
     const privateKey = createStarkPrivateKey();
     expect(typeof privateKey).toBe('string');

@@ -5,7 +5,7 @@ const depositSelector = {
   int: '352040181584456735608515580760888541466059565068553383579463728554843487745',
 };
 
-describe('selector', () => {
+describe('Selector', () => {
   it("getSelectorFromName('deposit')", () => {
     const selector = getSelectorFromName('deposit');
     expect(selector.hex).toBe(depositSelector.hex);
