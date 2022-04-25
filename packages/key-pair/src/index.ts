@@ -25,6 +25,7 @@ export function getPublicKeyFromPrivateKey(privateKeyHex: string) {
   const keyPair = getKeyPairFromPrivateKey(privateKeyHex);
   // generate the .pub property used below
   keyPair.getPublic(true, 'hex');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return addHexPrefix(sanitizeBytes((keyPair as any).pub.getX().toString(16), 2));
 }
 
