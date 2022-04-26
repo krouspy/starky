@@ -31,6 +31,7 @@ const endpoints: Endpoints = {
   get_storage_at: 'get_storage_at',
   get_nonce: 'call_contract',
   call_contract: 'call_contract',
+  invoke_contract: 'add_transaction',
   deploy_contract: 'add_transaction',
 };
 

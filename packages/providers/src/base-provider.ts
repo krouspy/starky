@@ -37,7 +37,7 @@ export class Provider {
     calldata = [],
   }: ContractInteraction) {
     const selector = getSelectorFromName(functionName);
-    return this._sendRequest({
+    const { result } = await this._sendRequest({
       operation: 'call_contract',
       payload: {
         contract_address: contractAddress,
@@ -46,6 +46,7 @@ export class Provider {
         calldata,
       },
     });
+    return result;
   }
 
   async invokeContract({

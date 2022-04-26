@@ -12,7 +12,7 @@ export class Contract {
   ) {}
 
   async call(params: InteractionParameters) {
-    const { result } = await this._provider.callContract({
+    const result = await this._provider.callContract({
       contractAddress: this.address,
       ...params,
     });
