@@ -1,6 +1,7 @@
 {
   "name": "starky",
   "private": true,
+  "version": "0.0.0",
   "scripts": {
     "test": "jest",
     "lint": "eslint \"packages/**/*.ts\"",
