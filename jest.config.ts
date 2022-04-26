@@ -4,7 +4,7 @@ const config: Config.InitialOptions = {
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testTimeout: 50000,
+  testTimeout: 100000,
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
 };
 
