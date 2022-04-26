@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import type { Abi } from '@starky/contract';
 import { CallContractPayloadSchema } from '../schemas/payloads';
 import type {
   GetBlockResponse,
@@ -180,3 +179,33 @@ export type Endpoints = {
 
 // TODO: find a way to replace `string` by `Operations['operation'] | Operations['endpoint']`
 export type UrlPathname = `${Gateway}/${string}`;
+
+export type Member = {
+  name: string;
+  offset: number;
+  type: 'felt' | 'felt*' | (string & {});
+};
+
+export type Struct = {
+  members: Member[];
+  name: string;
+  size: number;
+  type: string;
+};
+
+export type Argument = {
+  name: string;
+  type: string;
+};
+
+export type CairoFunction = {
+  stateMutability?: string;
+  name: string;
+  type: 'function' | 'constructor' | (string & {});
+  inputs?: Argument[];
+  outputs?: Argument[];
+};
+
+export type AbiEntry = CairoFunction | Struct;
+
+export type Abi = AbiEntry[];
