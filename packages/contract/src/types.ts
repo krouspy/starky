@@ -1,7 +1,7 @@
 export type Member = {
   name: string;
   offset: number;
-  type: string;
+  type: 'felt' | 'felt*' | (string & {});
 };
 
 export type Struct = {
@@ -19,16 +19,11 @@ export type Argument = {
 export type CairoFunction = {
   stateMutability?: string;
   name: string;
-  // type: 'function' | 'constructor';
-  type: string;
+  type: 'function' | 'constructor' | (string & {});
   inputs?: Argument[];
   outputs?: Argument[];
 };
 
 export type AbiEntry = CairoFunction | Struct;
-
-/* export type Abi = {
-  [name: string]: AbiEntry;
-}; */
 
 export type Abi = AbiEntry[];
