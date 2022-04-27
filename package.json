@@ -7,12 +7,13 @@
     "build": "preconstruct build",
     "postinstall": "preconstruct dev",
     "prepublishOnly": "yarn build",
-    "release": "yarn publish",
+    "release": "changeset publish",
     "lint": "eslint \"packages/**/*.ts\"",
     "prettier": "prettier \"**/*.ts\"",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@changesets/cli": "^2.22.0",
     "@preconstruct/cli": "^2.1.5"
   },
   "devDependencies": {
