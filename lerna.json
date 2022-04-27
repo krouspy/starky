@@ -1,5 +1,10 @@
 {
   "version": "0.0.2",
+  "registry": "https://registry.npmjs.org/",
   "npmClient": "yarn",
+  "publishConfig": {
+    "access": "public"
+  },
+  "useWorkspaces": true,
   "packages": ["packages/*"]
 }
