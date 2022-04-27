@@ -1,6 +1,6 @@
 {
   "name": "@starky/key-pair",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "types": "dist/starky-key-pair.cjs.d.ts",
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
-    "@starky/utils": "^0.0.1",
+    "@starky/utils": "^0.1.0",
     "elliptic": "^6.5.4",
     "hash.js": "^1.1.7"
   },
