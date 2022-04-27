@@ -5,10 +5,16 @@
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "ISC",
   "main": "dist/starky-contract.cjs.js",
+  "types": "dist/starky-contract.cjs.d.ts",
   "dependencies": {
     "@starky/key-pair": "^0.0.1",
     "@starky/providers": "^0.0.1",
     "@starky/utils": "^0.0.1"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
   },
   "files": [
     "src",

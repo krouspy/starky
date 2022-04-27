@@ -5,11 +5,17 @@
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
   "main": "dist/starky-providers.cjs.js",
+  "types": "dist/starky-providers.cjs.d.ts",
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
     "@starky/selector": "0.0.1",
     "axios": "^0.26.1",
     "zod": "^3.14.4"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
   },
   "files": [
     "src",
