@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.json",
+  "files": ["dist"],
   "compilerOptions": {
     "outDir": "build",
     "rootDir": "src",
     "composite": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true
   },
   "include": ["./src/**/*"],

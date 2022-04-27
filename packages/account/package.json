@@ -4,7 +4,7 @@
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/starky-account.cjs.js",
   "dependencies": {
     "@starky/contract": "^0.0.1",
     "@starky/key-pair": "^0.0.1",
@@ -12,6 +12,7 @@
   },
   "files": [
     "src",
+    "dist",
     "README.md"
   ],
   "repository": {

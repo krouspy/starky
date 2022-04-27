@@ -4,7 +4,7 @@
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/starky-selector.cjs.js",
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
     "js-sha3": "^0.8.0"
@@ -14,6 +14,7 @@
   },
   "files": [
     "src",
+    "dist",
     "README.md"
   ],
   "repository": {

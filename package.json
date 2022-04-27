@@ -3,12 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "build": "preconstruct build",
+    "postinstall": "preconstruct dev",
     "test": "jest",
     "lint": "eslint \"packages/**/*.ts\"",
     "prettier": "prettier \"**/*.ts\"",
     "prepare": "husky install"
   },
+  "dependencies": {
+    "@preconstruct/cli": "^2.1.5"
+  },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
     "@jest/types": "^27.5.1",
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
@@ -26,5 +32,10 @@
   },
   "lint-staged": {
     "*.{ts,json,md}": "prettier --write"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
   }
 }
