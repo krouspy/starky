@@ -1,15 +1,15 @@
 {
   "name": "@starky/account",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
   "main": "dist/starky-account.cjs.js",
   "types": "dist/starky-account.cjs.d.ts",
   "dependencies": {
-    "@starky/contract": "^0.1.0",
-    "@starky/key-pair": "^0.1.0",
-    "@starky/providers": "^0.1.0"
+    "@starky/contract": "^0.0.2",
+    "@starky/key-pair": "^0.0.2",
+    "@starky/providers": "^0.0.2"
   },
   "preconstruct": {
     "entrypoints": [

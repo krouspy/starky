@@ -1,6 +1,6 @@
 {
   "name": "@starky/providers",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "types": "dist/starky-providers.cjs.d.ts",
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
-    "@starky/selector": "^0.1.0",
+    "@starky/selector": "^0.0.2",
     "axios": "^0.26.1",
     "zod": "^3.14.4"
   },
