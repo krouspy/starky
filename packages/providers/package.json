@@ -11,6 +11,10 @@
     "axios": "^0.26.1",
     "zod": "^3.14.4"
   },
+  "files": [
+    "src",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krouspy/starky.git"

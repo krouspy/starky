@@ -10,6 +10,10 @@
     "@starky/key-pair": "^0.0.1",
     "@starky/providers": "0.0.1"
   },
+  "files": [
+    "src",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krouspy/starky.git"

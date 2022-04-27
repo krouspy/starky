@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "lib": ["ES2021"],
     "module": "CommonJS",
     "strict": true,
@@ -10,10 +13,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "isolatedModules": true,
     "resolveJsonModule": true,
     "target": "ES2021",
+    "outDir": "./dist",
     "baseUrl": "./src"
   }
 }

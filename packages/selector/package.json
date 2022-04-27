@@ -12,6 +12,10 @@
   "devDependencies": {
     "@types/node": "^17.0.25"
   },
+  "files": [
+    "src",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krouspy/starky.git"
