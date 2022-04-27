@@ -3,9 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "test": "jest",
     "build": "preconstruct build",
     "postinstall": "preconstruct dev",
-    "test": "jest",
+    "prepublishOnly": "yarn build",
+    "release": "yarn publish",
     "lint": "eslint \"packages/**/*.ts\"",
     "prettier": "prettier \"**/*.ts\"",
     "prepare": "husky install"
