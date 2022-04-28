@@ -14,18 +14,18 @@ jobs:
     strategy:
       matrix:
         node-version: [14]
-        pnpm-version: [7.0.0]
+        pnpm-version: [6.24.2]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - name: Setup Pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.1
         with:
-          node-version: ${{ matrix.pnpm-version }}
+          version: ${{ matrix.pnpm-version }}
 
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
