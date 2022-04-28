@@ -10,7 +10,7 @@
     "changeset:release": "pnpm build && changeset publish",
     "changeset:version": "changeset version && pnpm install --lockfile-only",
     "prettier": "prettier \"**/*.{ts,md,json}\"",
-    "preinstall": "npx -y only-allow pnpm",
+    "preinstall": "npx y only-allow pnpm",
     "prepare": "husky install"
   },
   "devDependencies": {
