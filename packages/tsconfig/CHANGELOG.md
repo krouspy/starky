@@ -1,4 +1,4 @@
-# @starky/selector
+# @starky/tsconfig
 
 ## 1.0.0
 
@@ -10,9 +10,3 @@
   - KeyPair
   - Selector
   - Utils
-
-## 0.1.0
-
-### Minor Changes
-
-- e684cc1: First publishing
