@@ -4,18 +4,27 @@
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
-  "main": "dist/starky-providers.cjs.js",
-  "types": "dist/starky-providers.cjs.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config=./jest.config.ts",
+    "lint": "eslint src/**/*.ts"
+  },
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
-    "@starky/selector": "^0.0.2",
+    "@starky/selector": "workspace:*",
     "axios": "^0.26.1",
     "zod": "^3.14.4"
   },
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts"
-    ]
+  "devDependencies": {
+    "@starky/config": "workspace:*",
+    "@starky/tsconfig": "workspace:*",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.29",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3"
   },
   "files": [
     "src",

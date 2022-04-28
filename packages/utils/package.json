@@ -4,21 +4,25 @@
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "MIT",
-  "main": "dist/starky-utils.cjs.js",
-  "types": "dist/starky-utils.cjs.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
+  },
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.0",
     "json-bigint": "^1.0.0",
     "pako": "^2.0.4"
   },
   "devDependencies": {
+    "@starky/config": "workspace:*",
+    "@starky/tsconfig": "workspace:*",
     "@types/json-bigint": "^1.0.1",
-    "@types/pako": "^1.0.3"
-  },
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts"
-    ]
+    "@types/node": "^17.0.29",
+    "@types/pako": "^1.0.3",
+    "eslint": "^8.14.0",
+    "typescript": "^4.6.3"
   },
   "files": [
     "src",

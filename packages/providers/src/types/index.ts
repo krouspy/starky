@@ -183,6 +183,7 @@ export type UrlPathname = `${Gateway}/${string}`;
 export type Member = {
   name: string;
   offset: number;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   type: 'felt' | 'felt*' | (string & {});
 };
 
@@ -201,6 +202,7 @@ export type Argument = {
 export type CairoFunction = {
   stateMutability?: string;
   name: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   type: 'function' | 'constructor' | (string & {});
   inputs?: Argument[];
   outputs?: Argument[];

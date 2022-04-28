@@ -3,46 +3,34 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "test": "jest",
-    "build": "preconstruct build",
-    "postinstall": "preconstruct dev",
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
     "prepublishOnly": "yarn build",
-    "release": "changeset publish",
-    "lint": "eslint \"packages/**/*.ts\"",
-    "prettier": "prettier \"**/*.ts\"",
+    "prettier": "prettier \"**/*.{ts,md,json}\"",
+    "preinstall": "npx -y only-allow pnpm",
     "prepare": "husky install"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.22.0",
-    "@preconstruct/cli": "^2.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
-    "@jest/types": "^27.5.1",
-    "@types/jest": "^27.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.17.0",
-    "@typescript-eslint/parser": "^5.17.0",
-    "eslint": "^8.12.0",
-    "husky": ">=6",
-    "jest": "^27.5.1",
-    "jest-config": "^27.5.1",
-    "lerna": "^4.0.0",
-    "lint-staged": ">=10",
-    "prettier": "^2.6.1",
-    "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.3"
+    "@changesets/cli": "^2.22.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2",
+    "turbo": "^1.2.5"
+  },
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7"
   },
   "workspaces": [
     "packages/*"
   ],
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
-  },
   "lint-staged": {
     "*.{ts,json,md}": "prettier --write"
   }

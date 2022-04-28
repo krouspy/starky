@@ -1,11 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@starky/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "build",
-    "rootDir": "src",
-    "composite": true,
-    "esModuleInterop": true
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./**/__tests__/**/*"]
+  "include": ["./src"],
+  "exclude": ["dist", "build", "__tests__"]
 }

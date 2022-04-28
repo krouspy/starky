@@ -1,10 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@starky/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "build",
-    "rootDir": "src"
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./**/__tests__/**/*"],
-  "references": [{ "path": "../providers" }]
+  "include": ["./src"],
+  "exclude": ["dist", "build", "__tests__"]
 }
