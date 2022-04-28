@@ -9,7 +9,6 @@
     "lint:fix": "turbo run lint:fix",
     "changeset:release": "pnpm build && changeset publish",
     "changeset:version": "changeset version && pnpm install --lockfile-only",
-    "prepublishOnly": "yarn build",
     "prettier": "prettier \"**/*.{ts,md,json}\"",
     "preinstall": "npx -y only-allow pnpm",
     "prepare": "husky install"
