@@ -8,7 +8,7 @@ import {
   GetContractCodeSchema,
   GetContractAddressesSchema,
   CallContractResultSchema,
-} from './packages/providers/src/schemas/responses';
+} from './src/schemas/responses';
 import type {
   GetBlockResponse,
   GetTransactionResponse,
@@ -17,7 +17,7 @@ import type {
   GetContractCodeResponse,
   GetContractAddressesResponse,
   CallContractResultResponse,
-} from './packages/providers/src/types/responses';
+} from './src/types/responses';
 
 interface CustomMatchers<R = unknown> {
   toBeBlock(): R;

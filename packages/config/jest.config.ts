@@ -5,7 +5,6 @@ const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testTimeout: 100000,
-  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
 };
 
 export default config;
