@@ -1,1 +1,1 @@
-module.exports = require('@starky/config/eslint-preset');
+module.exports = require('@starkyproject/config/eslint-preset');

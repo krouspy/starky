@@ -1,5 +1,5 @@
-import { Provider } from '@starky/providers';
-import { KeyPair } from '@starky/key-pair';
+import { Provider } from '@starkyproject/providers';
+import { KeyPair } from '@starkyproject/key-pair';
 import { BaseAccount } from './base-account';
 
 export class ArgentAccount extends BaseAccount {

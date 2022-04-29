@@ -90,6 +90,7 @@ export type ContractInteraction = {
   functionName: string;
   signature?: string[];
   calldata?: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   args?: Record<any, any>;
 };
 export type CallContractPayload = z.infer<typeof CallContractPayloadSchema>;

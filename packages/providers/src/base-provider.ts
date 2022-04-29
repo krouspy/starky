@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
-import { getSelectorFromName } from '@starky/selector';
+import { getSelectorFromName } from '@starkyproject/selector';
 import type {
   Network,
   Operations,

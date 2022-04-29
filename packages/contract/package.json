@@ -12,13 +12,13 @@
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@starky/key-pair": "workspace:*",
-    "@starky/providers": "workspace:*",
-    "@starky/utils": "workspace:*"
+    "@starkyproject/key-pair": "workspace:*",
+    "@starkyproject/providers": "workspace:*",
+    "@starkyproject/utils": "workspace:*"
   },
   "devDependencies": {
-    "@starky/config": "workspace:*",
-    "@starky/tsconfig": "workspace:*",
+    "@starkyproject/config": "workspace:*",
+    "@starkyproject/tsconfig": "workspace:*",
     "@types/jest": "^27.4.1",
     "eslint": "^8.14.0",
     "jest": "^27.5.1",

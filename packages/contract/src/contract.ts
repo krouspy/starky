@@ -1,5 +1,5 @@
-import { Provider } from '@starky/providers';
-import type { ContractInteraction, Abi } from '@starky/providers';
+import { Provider } from '@starkyproject/providers';
+import type { ContractInteraction, Abi } from '@starkyproject/providers';
 
 type InteractionParameters = Omit<ContractInteraction, 'contractAddress'>;
 

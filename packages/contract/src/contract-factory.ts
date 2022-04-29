@@ -1,7 +1,7 @@
-import { Provider } from '@starky/providers';
-import type { ContractDefinition } from '@starky/providers';
-import { createStarkKeys } from '@starky/key-pair';
-import { compressProgram } from '@starky/utils';
+import { Provider } from '@starkyproject/providers';
+import type { ContractDefinition } from '@starkyproject/providers';
+import { createStarkKeys } from '@starkyproject/key-pair';
+import { compressProgram } from '@starkyproject/utils';
 import { Contract } from './contract';
 
 type Definition = Pick<ContractDefinition, 'abi' | 'entry_points_by_type'> & {

@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { addHexPrefix, removeHexPrefix } from '@starky/utils';
+import { addHexPrefix, removeHexPrefix } from '@starkyproject/utils';
 import { ec, type KeyPair } from './elliptic';
 import { sanitizeBytes } from './encode';
 
