@@ -1,0 +1,10 @@
+{
+  "extends": "@starkyproject/tsconfig/base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "resolveJsonModule": true
+  },
+  "include": ["./src"],
+  "exclude": ["dist", "build", "__tests__"]
+}
