@@ -1,6 +1,6 @@
 {
-  "name": "@starkyproject/contract",
-  "version": "1.0.0",
+  "name": "@starkyproject/signer",
+  "version": "0.0.1",
   "author": "krouspy <krouspyy@gmail.com>",
   "homepage": "https://github.com/krouspy/starky#readme",
   "license": "ISC",
@@ -8,13 +8,11 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest --config=./jest.config.ts",
+    "test": "jest",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@starkyproject/signer": "workspace:*",
-    "@starkyproject/providers": "workspace:*",
-    "@starkyproject/utils": "workspace:*"
+    "@starkyproject/key-pair": "workspace:*"
   },
   "devDependencies": {
     "@starkyproject/config": "workspace:*",
@@ -24,9 +22,6 @@
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
-  },
-  "peerDependencies": {
-    "@starkyproject/providers": "workspace:*"
   },
   "files": [
     "src",

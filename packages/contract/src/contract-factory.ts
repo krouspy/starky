@@ -1,6 +1,6 @@
 import { Provider } from '@starkyproject/providers';
-import type { ContractDefinition } from '@starkyproject/providers';
-import { createStarkKeys } from '@starkyproject/key-pair';
+import type { Abi, ContractDefinition } from '@starkyproject/providers';
+import { Signer } from '@starkyproject/signer';
 import { compressProgram } from '@starkyproject/utils';
 import { Contract } from './contract';
 
@@ -10,16 +10,30 @@ type Definition = Pick<ContractDefinition, 'abi' | 'entry_points_by_type'> & {
 };
 
 export class ContractFactory {
-  constructor(private readonly _provider: Provider) {}
+  constructor(
+    private readonly _abi: Abi,
+    private readonly _provider: Provider,
+    private _signer?: Signer
+  ) {}
+
+  connect(signer: Signer) {
+    this._signer = signer;
+    return this;
+  }
+
+  attach(contractAddress: string) {
+    return new Contract(contractAddress, this._abi, this._provider);
+  }
 
   async deploy({ abi, entry_points_by_type, program }: Definition): Promise<Contract> {
-    const { publicKey } = createStarkKeys();
+    if (this._signer === undefined) throw new Error('ContractFactory: signer is required');
+    const { publicKey } = this._signer;
     const contractDefinition: ContractDefinition = {
       abi,
       entry_points_by_type,
       program: compressProgram(program),
     };
     const { address } = await this._provider.deployContract(publicKey, contractDefinition);
-    return new Contract(address, abi, this._provider);
+    return new Contract(address, abi, this._provider, this._signer);
   }
 }

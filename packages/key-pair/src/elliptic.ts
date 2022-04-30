@@ -2,7 +2,7 @@ import { ec as EC, curves } from 'elliptic';
 import hashJS from 'hash.js';
 import { FIELD_PRIME, EC_ORDER, CONSTANT_POINTS } from './constants';
 
-export type KeyPair = EC.KeyPair;
+export type ECKeyPair = EC.KeyPair;
 
 export const ec = new EC(
   new curves.PresetCurve({
